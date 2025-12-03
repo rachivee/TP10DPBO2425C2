@@ -4,7 +4,7 @@ require_once 'viewmodels/WalletViewModel.php';
 require_once 'viewmodels/CategoryViewModel.php';
 require_once 'viewmodels/BudgetViewModel.php';
 
-$entity = isset($_GET['entity']) ? $_GET['entity'] : 'wallet';
+$entity = isset($_GET['entity']) ? $_GET['entity'] : 'category';
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
 
 if ($entity === 'transaction') {
@@ -12,7 +12,7 @@ if ($entity === 'transaction') {
 
 } elseif ($entity === 'wallet') {
     $walletVM = new WalletViewModel();
-    
+
     switch ($action) {
         case 'list':
             $walletList = $walletVM->getWalletList();
@@ -52,6 +52,41 @@ if ($entity === 'transaction') {
 } elseif ($entity === 'category') {
     $categoryVM = new CategoryViewModel();
 
+    switch ($action) {
+        case 'list':
+            $categoryList = $categoryVM->getCategoryList();
+            require_once 'views/categoryList.php';
+            break;
+        case 'add':
+            require_once 'views/categoryForm.php';
+            break;
+        case 'edit':
+            $id = $_GET['id'];
+            $category = $categoryVM->getCategoryById($id);
+            require_once 'views/categoryForm.php';
+            break;
+        case 'save':
+            $name = $_POST['name'];
+            $type = $_POST['type'];
+            $categoryVM->addCategory($name, $type);
+            header('Location: index.php?entity=category&action=list');
+            break;
+        case 'update':
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $type = $_POST['type'];
+            $categoryVM->updateCategory($id, $name, $type);
+            header('Location: index.php?entity=category&action=list');
+            break;
+        case 'delete':
+            $id = $_GET['id'];
+            $categoryVM->deleteCategory($id);
+            header('Location: index.php?entity=category&action=list');
+            break;
+        default:
+            echo "Invalid action.";
+            break;
+    }
 } elseif ($entity === 'budget') {
     $budgetVM = new BudgetViewModel();
 

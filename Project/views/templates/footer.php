@@ -29,8 +29,8 @@
                 <h6 class="text-white fw-bold mb-3">Menu</h6>
                 <ul class="list-unstyled small">
                     <li class="mb-2"><a href="index.php" class="text-decoration-none" style="color: #c7d2fe;">Dashboard</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Riwayat</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Dompet</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Transaksi</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Wallet</a></li>
                     <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Kategori</a></li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@
         </div>
 
         <div class="border-top border-secondary mt-5 pt-4 text-center small">
-            <p class="mb-0">by. R made with love</p>
+            <p class="mb-0">by. rachivee made with love ♡</p>
         </div>
     </div>
 </footer>

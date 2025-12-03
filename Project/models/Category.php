@@ -31,16 +31,28 @@ class Category
 
     public function create($name, $type)
     {
-
+        $query = "INSERT INTO " . $this->table . " (name, type) VALUES (:name, :type)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':type', $type);
+        return $stmt->execute();
     }
 
     public function update($id, $name, $type)
     {
-        
+        $query = "UPDATE " . $this->table . " SET name = :name, type = :type WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':type', $type);
+        return $stmt->execute();
     }
 
     public function delete($id)
     {
-       
+        $query = "DELETE FROM " . $this->table . " WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 }

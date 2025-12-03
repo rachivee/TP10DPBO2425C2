@@ -95,13 +95,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto gap-3">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Dashboard</a>
+                    <a class="nav-link" href="index.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Dompet</a>
+                    <a class="nav-link" href="index.php?entity=wallet&action=list">Wallet</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-primary text-white shadow-sm" href="tambah_transaksi.php">
+                    <a class="btn btn-primary text-white shadow-sm" href="transaksiForm.php">
                         <i class="fas fa-plus me-1"></i> Transaksi
                     </a>
                 </li>
