@@ -4,11 +4,57 @@ require_once 'viewmodels/WalletViewModel.php';
 require_once 'viewmodels/CategoryViewModel.php';
 require_once 'viewmodels/BudgetViewModel.php';
 
-$entity = isset($_GET['entity']) ? $_GET['entity'] : 'category';
+$entity = isset($_GET['entity']) ? $_GET['entity'] : 'transaction';
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
 
 if ($entity === 'transaction') {
     $transactionVM = new TransactionViewModel();
+
+    switch ($action) {
+        case 'list':
+            $transactionList = $transactionVM->getTransactionList();
+            require_once 'views/transactionList.php';
+            break;
+        case 'add':
+            $walletList = $transactionVM->getWallets();
+            $categoryList = $transactionVM->getCategories();
+            require_once 'views/transactionForm.php';
+            break;
+        case 'edit':
+            $id = $_GET['id'];
+            $transaction = $transactionVM->getTransactionById($id);
+            $walletList = $transactionVM->getWallets();
+            $categoryList = $transactionVM->getCategories();
+            require_once 'views/transactionForm.php';
+            break;
+        case 'save':
+            $wallet_id = $_POST['wallet_id'];
+            $category_id = $_POST['category_id'];
+            $amount = $_POST['amount'];
+            $description = $_POST['description'];
+            $date = $_POST['transaction_date'];
+            $transactionVM->addTransaction($wallet_id, $category_id, $amount, $description, $date);
+            header('Location: index.php?entity=transaction&action=list');
+            break;
+        case 'update':
+            $id = $_POST['id'];
+            $wallet_id = $_POST['wallet_id'];
+            $category_id = $_POST['category_id'];
+            $amount = $_POST['amount'];
+            $description = $_POST['description'];
+            $transaction_date = $_POST['transaction_date'];
+            $transactionVM->updateTransaction($id, $wallet_id, $category_id, $amount, $description, $transaction_date);
+            header('Location: index.php?entity=transaction&action=list');
+            break;
+        case 'delete':
+            $id = $_GET['id'];
+            $transactionVM->deleteTransaction($id);
+            header('Location: index.php?entity=transaction&action=list');
+            break;
+        default:
+            echo "Invalid action.";
+            break;
+    }
 
 } elseif ($entity === 'wallet') {
     $walletVM = new WalletViewModel();

@@ -29,9 +29,9 @@
                 <h6 class="text-white fw-bold mb-3">Menu</h6>
                 <ul class="list-unstyled small">
                     <li class="mb-2"><a href="index.php" class="text-decoration-none" style="color: #c7d2fe;">Dashboard</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Transaksi</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Wallet</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Kategori</a></li>
+                    <li class="mb-2"><a href="index.php?entity=transaction&action=list" class="text-decoration-none" style="color: #c7d2fe;">Transaksi</a></li>
+                    <li class="mb-2"><a href="index.php?entity=wallet&action=list" class="text-decoration-none" style="color: #c7d2fe;">Wallet</a></li>
+                    <li class="mb-2"><a href="index.php?entity=category&action=list" class="text-decoration-none" style="color: #c7d2fe;">Kategori</a></li>
                 </ul>
             </div>
 

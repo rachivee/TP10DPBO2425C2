@@ -14,7 +14,20 @@ class Transaction
 
     public function getAll()
     {
-        $query = "SELECT * FROM " . $this->table;
+        $query = "SELECT 
+                    t.id, 
+                    t.amount, 
+                    t.description, 
+                    t.transaction_date,
+                    t.wallet_id,
+                    t.category_id,
+                    w.name as wallet_name, 
+                    c.name as category_name, 
+                    c.type as category_type
+                  FROM " . $this->table . " t
+                  JOIN wallets w ON t.wallet_id = w.id
+                  JOIN categories c ON t.category_id = c.id
+                  ORDER BY t.transaction_date DESC, t.id DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,18 +42,38 @@ class Transaction
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function create($wallet_id, $category_id, $amount, $description, $transaction_date, $created_at)
+    public function create($wallet_id, $category_id, $amount, $description, $transaction_date)
     {
+        $query = "INSERT INTO " . $this->table . " (wallet_id, category_id, amount, description, transaction_date) VALUES (:wallet_id, :category_id, :amount, :description, :transaction_date)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':wallet_id', $wallet_id);
+        $stmt->bindParam(':category_id', $category_id);
+        $stmt->bindParam(':amount', $amount);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':transaction_date', $transaction_date);
+        return $stmt->execute();
 
     }
 
-    public function update($id, $wallet_id, $category_id, $amount, $description, $transaction_date, $created_at)
+    public function update($id, $wallet_id, $category_id, $amount, $description, $transaction_date)
     {
-        
+        $query = "UPDATE " . $this->table . " SET wallet_id = :wallet_id, category_id = :category_id, amount = :amount, description = :description, transaction_date = :transaction_date WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':wallet_id', $wallet_id);
+        $stmt->bindParam(':category_id', $category_id);
+        $stmt->bindParam(':amount', $amount);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':transaction_date', $transaction_date);
+
+        return $stmt->execute();
     }
 
     public function delete($id)
     {
-       
+        $query = "DELETE FROM " . $this->table . " WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 }
