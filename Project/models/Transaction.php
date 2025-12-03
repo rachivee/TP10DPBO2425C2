@@ -109,4 +109,36 @@ class Transaction
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getMonthlyStats($month, $year)
+    {
+        // Hitung Income Bulan Ini
+        $queryIncome = "SELECT SUM(t.amount) as total FROM " . $this->table . " t 
+                        JOIN categories c ON t.category_id = c.id 
+                        WHERE c.type = 'income' 
+                        AND MONTH(t.transaction_date) = :m AND YEAR(t.transaction_date) = :y";
+        
+        $stmt = $this->conn->prepare($queryIncome);
+        $stmt->bindParam(':m', $month);
+        $stmt->bindParam(':y', $year);
+        $stmt->execute();
+        $income = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+
+        // Hitung Expense Bulan Ini
+        $queryExpense = "SELECT SUM(t.amount) as total FROM " . $this->table . " t 
+                         JOIN categories c ON t.category_id = c.id 
+                         WHERE c.type = 'expense' 
+                         AND MONTH(t.transaction_date) = :m AND YEAR(t.transaction_date) = :y";
+        
+        $stmt = $this->conn->prepare($queryExpense);
+        $stmt->bindParam(':m', $month);
+        $stmt->bindParam(':y', $year);
+        $stmt->execute();
+        $expense = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+
+        return [
+            'income' => $income,
+            'expense' => $expense
+        ];
+    }
 }

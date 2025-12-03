@@ -34,4 +34,8 @@ class WalletViewModel
     {
         return $this->wallet->delete($id);
     }
+
+    public function getWalletsWithBalance() {
+        return $this->wallet->getWalletListWithBalance();
+    }
 }

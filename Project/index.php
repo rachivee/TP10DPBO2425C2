@@ -180,27 +180,15 @@ if ($entity === 'transaction') {
     $categoryVM = new CategoryViewModel();
     $budgetVM = new BudgetViewModel();
 
-    // 1. Ambil Data Summary
-    $summary = $transactionVM->getDashboardSummary();
-    
-    // 2. Hitung Total Saldo Real (Saldo Awal Wallet + Cashflow)
-    // Kita butuh data wallet untuk tahu saldo awal
-    $wallets = $walletVM->getWalletList();
-    $totalInitialBalance = 0;
-    foreach($wallets as $w) {
-        $totalInitialBalance += $w['initial_balance'];
+    $walletList = $walletVM->getWalletsWithBalance();
+    $totalAssets = 0;
+    foreach ($walletList as $w) {
+        $totalAssets += $w['current_balance'];
     }
-    // Saldo Akhir = Saldo Awal Dompet + (Pemasukan - Pengeluaran)
-    $currentBalance = $totalInitialBalance + $summary['income'] - $summary['expense'];
-
-    // 3. Ambil 5 Transaksi Terakhir
+    $monthlyStats = $transactionVM->getStatsThisMonth();
     $recentTransactions = $transactionVM->getRecentTransactions();
 
-    // 4. Ambil Data Wallet untuk List Samping
-    $walletList = $walletVM->getWalletList(); // Dipakai lagi untuk tampilan
-
     require_once 'views/dashboard.php';
-
 } else {
     echo "Invalid entity.";
 }

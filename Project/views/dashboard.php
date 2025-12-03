@@ -9,11 +9,10 @@
                     <div class="rounded-circle bg-white bg-opacity-25 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
                         <i class="fas fa-wallet fa-lg"></i>
                     </div>
-                    <span class="badge bg-white text-primary rounded-pill px-3 py-2">Total</span>
                 </div>
                 <p class="mb-1 opacity-75 small text-uppercase ls-1">Saldo Saat Ini</p>
                 <h2 class="fw-bold mb-0" style="font-family: 'Inter', monospace;">
-                    Rp <?= number_format($currentBalance, 0, ',', '.'); ?>
+                    Rp <?= number_format($totalAssets, 0, ',', '.'); ?>
                 </h2>
             </div>
         </div>
@@ -29,7 +28,7 @@
                     <h6 class="fw-bold mb-0 text-secondary">Pemasukan</h6>
                 </div>
                 <h3 class="fw-bold text-dark mb-0">
-                    Rp <?= number_format($summary['income'], 0, ',', '.'); ?>
+                    Rp <?= number_format($monthlyStats['income'], 0, ',', '.'); ?>
                 </h3>
                 <p class="text-muted small mt-2 mb-0">Total masuk bulan ini</p>
             </div>
@@ -46,7 +45,7 @@
                     <h6 class="fw-bold mb-0 text-secondary">Pengeluaran</h6>
                 </div>
                 <h3 class="fw-bold text-dark mb-0">
-                    Rp <?= number_format($summary['expense'], 0, ',', '.'); ?>
+                    Rp <?= number_format($monthlyStats['expense'], 0, ',', '.'); ?>
                 </h3>
                 <p class="text-muted small mt-2 mb-0">Total keluar bulan ini</p>
             </div>
@@ -55,13 +54,11 @@
 </div>
 
 <div class="row g-4">
-    
     <div class="col-lg-8">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="fw-bold mb-0">Transaksi Terakhir</h5>
-            <a href="index.php?entity=transaction&action=list" class="text-decoration-none small fw-bold">Lihat Semua<i class="fas fa-arrow-right ms-1"></i></a>
+            <a href="index.php?entity=transaction&action=list" class="text-decoration-none small fw-bold">Lihat Semua <i class="fas fa-arrow-right ms-1"></i></a>
         </div>
-
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
             <div class="card-body p-0">
                 <div class="list-group list-group-flush">
@@ -101,14 +98,13 @@
 
     <div class="col-lg-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="fw-bold mb-0">Wallet Saya</h5>
+            <h5 class="fw-bold mb-0">Dompet Saya</h5>
             <a href="index.php?entity=wallet&action=add" class="btn btn-sm btn-light text-primary rounded-circle" style="width:32px; height:32px;"><i class="fas fa-plus"></i></a>
         </div>
-
-        <?php if (empty($walletList)): ?>
-            <div class="alert alert-light text-center border-0 rounded-4">Belum ada Wallet.</div>
-        <?php else: ?>
-            <?php foreach ($walletList as $wallet): ?>
+        
+        <?php foreach ($walletList as $wallet): ?>
+            <?php $balClass = $wallet['current_balance'] < 0 ? 'text-danger' : 'text-dark'; ?>
+            
             <div class="card border-0 shadow-sm rounded-4 mb-3">
                 <div class="card-body d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
@@ -117,24 +113,22 @@
                         </div>
                         <div>
                             <p class="mb-0 fw-bold text-dark"><?= htmlspecialchars($wallet['name']); ?></p>
-                            <small class="text-muted">Saldo Awal</small>
+                            <small class="text-muted">Saldo Saat Ini</small>
                         </div>
                     </div>
-                    <span class="fw-bold text-dark">
-                        Rp <?= number_format($wallet['initial_balance'], 0, ',', '.'); ?>
+                    <span class="fw-bold <?= $balClass; ?>">
+                        Rp <?= number_format($wallet['current_balance'], 0, ',', '.'); ?>
                     </span>
                 </div>
             </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-        
+        <?php endforeach; ?>
+
         <div class="d-grid mt-4">
             <a href="index.php?entity=transaction&action=add" class="btn btn-primary py-3 rounded-4 fw-bold shadow-sm">
                 <i class="fas fa-plus-circle me-2"></i> Catat Transaksi Baru
             </a>
         </div>
     </div>
-
 </div>
 
 <?php require_once 'views/templates/footer.php'; ?>

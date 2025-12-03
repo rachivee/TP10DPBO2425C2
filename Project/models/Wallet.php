@@ -56,4 +56,25 @@ class Wallet
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
+
+    public function getWalletListWithBalance()
+    {   
+        $query = "SELECT 
+                    w.id, 
+                    w.name, 
+                    w.initial_balance,
+                    (
+                        w.initial_balance 
+                        + 
+                        COALESCE((SELECT SUM(t.amount) FROM transactions t JOIN categories c ON t.category_id = c.id WHERE t.wallet_id = w.id AND c.type = 'income'), 0)
+                        - 
+                        COALESCE((SELECT SUM(t.amount) FROM transactions t JOIN categories c ON t.category_id = c.id WHERE t.wallet_id = w.id AND c.type = 'expense'), 0)
+                    ) AS current_balance
+                  FROM wallets w
+                  ORDER BY w.id ASC";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -15,10 +15,19 @@ class Budget
     // PERBAIKAN: Ditambahkan JOIN agar View bisa menampilkan Nama & Icon Kategori
     public function getAll()
     {
-        $query = "SELECT b.*, c.name as category_name
+        // Perhatikan tanda koma (,) setelah baris c.icon as category_icon
+        $query = "SELECT 
+                    b.*, c.name as category_name,
+                    (
+                        SELECT COALESCE(SUM(t.amount), 0) 
+                        FROM transactions t 
+                        WHERE t.category_id = b.category_id 
+                        AND DATE_FORMAT(t.transaction_date, '%Y-%m') = b.month_year
+                    ) as total_spent
                   FROM " . $this->table . " b
                   JOIN categories c ON b.category_id = c.id
-                  ORDER BY b.month_year DESC"; 
+                  ORDER BY b.month_year DESC";
+
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

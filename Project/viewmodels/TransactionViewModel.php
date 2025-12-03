@@ -58,4 +58,10 @@ class TransactionViewModel
     public function getRecentTransactions() {
         return $this->transaction->getRecent(5);
     }
+
+    public function getStatsThisMonth() {
+        $month = date('m');
+        $year = date('Y');
+        return $this->transaction->getMonthlyStats($month, $year);
+    }
 }
