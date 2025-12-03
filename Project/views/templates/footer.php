@@ -32,6 +32,7 @@
                     <li class="mb-2"><a href="index.php?entity=transaction&action=list" class="text-decoration-none" style="color: #c7d2fe;">Transaksi</a></li>
                     <li class="mb-2"><a href="index.php?entity=wallet&action=list" class="text-decoration-none" style="color: #c7d2fe;">Wallet</a></li>
                     <li class="mb-2"><a href="index.php?entity=category&action=list" class="text-decoration-none" style="color: #c7d2fe;">Kategori</a></li>
+                    <li class="mb-2"><a href="index.php?entity=budget&action=list" class="text-decoration-none" style="color: #c7d2fe;">Budgeting</a></li>
                 </ul>
             </div>
 

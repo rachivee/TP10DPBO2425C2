@@ -55,7 +55,6 @@ if ($entity === 'transaction') {
             echo "Invalid action.";
             break;
     }
-
 } elseif ($entity === 'wallet') {
     $walletVM = new WalletViewModel();
 
@@ -136,6 +135,45 @@ if ($entity === 'transaction') {
 } elseif ($entity === 'budget') {
     $budgetVM = new BudgetViewModel();
 
+    switch ($action) {
+        case 'list':
+            $budgetList = $budgetVM->getBudgetList();
+            require_once 'views/budgetList.php';
+            break;
+        case 'add':
+            $categoryList = $budgetVM->getCategories();
+            require_once 'views/budgetForm.php';
+            break;
+        case 'edit':
+            $id = $_GET['id'];
+            $budget = $budgetVM->getBudgetById($id);
+            $categoryList = $budgetVM->getCategories();
+            require_once 'views/budgetForm.php';
+            break;
+        case 'save':
+            $category_id = $_POST['category_id'];
+            $amount_limit = $_POST['amount_limit'];
+            $month_year = $_POST['month_year'];
+            $budgetVM->addBudget($category_id, $amount_limit, $month_year);
+            header('Location: index.php?entity=budget&action=list');
+            break;
+        case 'update':
+            $id = $_POST['id'];
+            $category_id = $_POST['category_id'];
+            $amount_limit = $_POST['amount_limit'];
+            $month_year = $_POST['month_year'];
+            $budgetVM->updateBudget($id, $category_id, $amount_limit, $month_year);
+            header('Location: index.php?entity=budget&action=list');
+            break;
+        case 'delete':
+            $id = $_GET['id'];
+            $budgetVM->deletebudget($id);
+            header('Location: index.php?entity=budget&action=list');
+            break;
+        default:
+            echo "Invalid action.";
+            break;
+    }
 } else {
     echo "Invalid entity.";
 }

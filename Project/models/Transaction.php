@@ -65,7 +65,6 @@ class Transaction
         $stmt->bindParam(':amount', $amount);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':transaction_date', $transaction_date);
-
         return $stmt->execute();
     }
 

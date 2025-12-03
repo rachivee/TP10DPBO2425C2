@@ -4,10 +4,12 @@ require_once 'models/Budget.php';
 class BudgetViewModel
 {
     private $budget;
+    private $category;
 
     public function __construct()
     {
         $this->budget = new Budget();
+        $this->category = new Category();
     }
 
     public function getBudgetList()
@@ -18,6 +20,11 @@ class BudgetViewModel
     public function getBudgetById($id)
     {
         return $this->budget->getById($id);
+    }
+
+    public function getCategories()
+    {
+        return $this->category->getAll();
     }
 
     public function addBudget($category_id, $amount_limit, $month_year)
