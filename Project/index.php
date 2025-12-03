@@ -12,7 +12,7 @@ if ($entity === 'transaction') {
 
 } elseif ($entity === 'wallet') {
     $walletVM = new WalletViewModel();
-
+    
     switch ($action) {
         case 'list':
             $walletList = $walletVM->getWalletList();
@@ -34,11 +34,10 @@ if ($entity === 'transaction') {
             header('Location: index.php?entity=wallet&action=list');
             break;
         case 'update':
-            $id = $_GET['id'];
+            $id = $_POST['id'];
             $name = $_POST['name'];
             $initial_balance = $_POST['initial_balance'];
-            $created_at = $_POST['created_at'];
-            $walletVM->updateWallet($id, $name, $initial_balance, $created_at);
+            $walletVM->updateWallet($id, $name, $initial_balance);
             header('Location: index.php?entity=wallet&action=list');
             break;
         case 'delete':

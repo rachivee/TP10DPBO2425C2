@@ -1,8 +1,5 @@
 <?php
 require_once 'views/templates/header.php';
-
-// Helper Logic untuk menentukan Mode (Add vs Edit)
-$isEdit = isset($wallet); // Mengecek apakah variabel $wallet dikirim dari controller
 ?>
 
 <div class="row justify-content-center">
@@ -16,20 +13,24 @@ $isEdit = isset($wallet); // Mengecek apakah variabel $wallet dikirim dari contr
             <div class="card-body p-4">
                 
                 <div class="text-center mb-4">
-                    <div class="d-inline-flex align-items-center justify-content-center <?= $isEdit ? 'bg-warning text-warning' : 'bg-primary text-primary'; ?> bg-opacity-10 rounded-circle mb-3" style="width: 50px; height: 50px;">
-                        <i class="fas <?= $isEdit ? 'fa-pencil-alt' : 'fa-wallet'; ?> fa-lg"></i>
+                    <div class="d-inline-flex align-items-center justify-content-center <?= isset($wallet) ? 'bg-warning text-warning' : 'bg-primary text-primary'; ?> bg-opacity-10 rounded-circle mb-3" style="width: 50px; height: 50px;">
+                        <i class="fas <?= isset($wallet) ? 'fa-pencil-alt' : 'fa-wallet'; ?> fa-lg"></i>
                     </div>
                     
                     <h4 class="fw-bold" style="font-family: 'Poppins', sans-serif;">
-                        <?php echo $isEdit ? 'Edit Wallet' : 'Tambah Wallet'; ?>
+                        <?= isset($wallet) ? 'Edit Wallet' : 'Tambah Wallet'; ?>
                     </h4>
                     <p class="text-muted small">
-                        <?php echo $isEdit ? 'Perbarui informasi Walletmu.' : 'Tambahkan sumber dana baru.'; ?>
+                        <?= isset($wallet) ? 'Perbarui informasi dompetmu.' : 'Tambahkan sumber dana baru.'; ?>
                     </p>
                 </div>
 
-                <form action="index.php?entity=wallet&action=<?php echo $isEdit ? 'update&id=' . $wallet['id'] : 'save'; ?>" method="POST">
+                <form action="index.php?entity=wallet&action=<?= isset($wallet) ? 'update' : 'save'; ?>" method="POST">
                     
+                    <?php if (isset($wallet)): ?>
+                        <input type="hidden" name="id" value="<?= $wallet['id']; ?>">
+                    <?php endif; ?>
+
                     <div class="mb-3">
                         <label class="form-label small text-muted fw-bold ls-1">Nama Wallet</label>
                         <div class="input-group">
@@ -38,7 +39,7 @@ $isEdit = isset($wallet); // Mengecek apakah variabel $wallet dikirim dari contr
                                    name="name" 
                                    class="form-control border-start-0 ps-0" 
                                    placeholder="Contoh: BCA, Gopay" 
-                                   value="<?php echo $isEdit ? htmlspecialchars($wallet['name']) : ''; ?>" 
+                                   value="<?= isset($wallet) ? htmlspecialchars($wallet['name']) : ''; ?>" 
                                    required>
                         </div>
                     </div>
@@ -51,20 +52,20 @@ $isEdit = isset($wallet); // Mengecek apakah variabel $wallet dikirim dari contr
                                    name="initial_balance" 
                                    class="form-control border-start-0 ps-0" 
                                    placeholder="0" 
-                                   value="<?php echo $isEdit ? htmlspecialchars($wallet['initial_balance']) : ''; ?>" 
+                                   value="<?= isset($wallet) ? htmlspecialchars($wallet['initial_balance']) : ''; ?>" 
                                    required>
                         </div>
-                        <?php if(!$isEdit): ?>
+                        <?php if(!isset($wallet)): ?>
                             <div class="form-text small text-secondary fst-italic mt-1">
-                                *Saldo saat ini di Wallet tersebut.
+                                *Saldo saat ini di dompet tersebut.
                             </div>
                         <?php endif; ?>
                     </div>
 
                     <div class="d-grid">
-                        <button type="submit" class="btn <?= $isEdit ? 'btn-warning text-dark' : 'btn-primary'; ?> py-2 fw-bold shadow-sm" style="border-radius: 10px;">
+                        <button type="submit" class="btn <?= isset($wallet) ? 'btn-warning text-dark' : 'btn-primary'; ?> py-2 fw-bold shadow-sm" style="border-radius: 10px;">
                             <i class="fas fa-save me-2"></i> 
-                            <?php echo $isEdit ? 'Update Perubahan' : 'Simpan Wallet'; ?>
+                            <?= isset($wallet) ? 'Update Perubahan' : 'Simpan Wallet'; ?>
                         </button>
                     </div>
 

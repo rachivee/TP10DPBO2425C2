@@ -39,14 +39,13 @@ class Wallet
         return $stmt->execute();
     }
 
-    public function update($id, $name, $initial_balance, $created_at)
+    public function update($id, $name, $initial_balance)
     {
-        $query = "UPDATE " . $this->table . " SET name = :name, initial_balance = :initial_balance, created_at = :created_at WHERE id = :id";
+        $query = "UPDATE " . $this->table . " SET name = :name, initial_balance = :initial_balance WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':name', $id_menu);
-        $stmt->bindParam(':initial_balance', $id_pelanggan);
-        $stmt->bindParam(':created_at', $jumlah);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':initial_balance', $initial_balance);
         return $stmt->execute();
     }
 
