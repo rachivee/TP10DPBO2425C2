@@ -50,4 +50,12 @@ class TransactionViewModel
     {
         return $this->transaction->delete($id);
     }
+
+    public function getDashboardSummary() {
+        return $this->transaction->getSummary();
+    }
+
+    public function getRecentTransactions() {
+        return $this->transaction->getRecent(5);
+    }
 }

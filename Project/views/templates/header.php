@@ -101,8 +101,8 @@
                     <a class="nav-link" href="index.php?entity=wallet&action=list">Wallet</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-primary text-white shadow-sm" href="index.php?entity=transaction&action=add">
-                        <i class="fas fa-plus me-1"></i> Transaksi
+                    <a class="btn btn-primary text-white shadow-sm" href="index.php?entity=budget&action=list">
+                        Atur Budgeting
                     </a>
                 </li>
             </ul>

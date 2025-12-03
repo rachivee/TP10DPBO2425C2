@@ -75,4 +75,38 @@ class Transaction
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
+
+    public function getSummary() {
+        $queryIncome = "SELECT SUM(t.amount) as total FROM " . $this->table . " t 
+                        JOIN categories c ON t.category_id = c.id 
+                        WHERE c.type = 'income'";
+        $stmt = $this->conn->prepare($queryIncome);
+        $stmt->execute();
+        $income = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+
+        $queryExpense = "SELECT SUM(t.amount) as total FROM " . $this->table . " t 
+                         JOIN categories c ON t.category_id = c.id 
+                         WHERE c.type = 'expense'";
+        $stmt = $this->conn->prepare($queryExpense);
+        $stmt->execute();
+        $expense = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+        return [
+            'income' => $income,
+            'expense' => $expense,
+            'balance' => $income - $expense
+        ];
+    }
+
+    public function getRecent($limit = 5) {
+        $query = "SELECT t.*, w.name as wallet_name, c.name as category_name, c.type as category_type
+                  FROM " . $this->table . " t
+                  JOIN wallets w ON t.wallet_id = w.id
+                  JOIN categories c ON t.category_id = c.id
+                  ORDER BY t.transaction_date DESC, t.id DESC
+                  LIMIT :limit";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

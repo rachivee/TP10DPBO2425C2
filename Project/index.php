@@ -4,7 +4,7 @@ require_once 'viewmodels/WalletViewModel.php';
 require_once 'viewmodels/CategoryViewModel.php';
 require_once 'viewmodels/BudgetViewModel.php';
 
-$entity = isset($_GET['entity']) ? $_GET['entity'] : 'transaction';
+$entity = isset($_GET['entity']) ? $_GET['entity'] : 'dashboard';
 $action = isset($_GET['action']) ? $_GET['action'] : 'list';
 
 if ($entity === 'transaction') {
@@ -174,6 +174,33 @@ if ($entity === 'transaction') {
             echo "Invalid action.";
             break;
     }
+} elseif ($entity === 'dashboard') {
+    $transactionVM = new TransactionViewModel();
+    $walletVM = new WalletViewModel();
+    $categoryVM = new CategoryViewModel();
+    $budgetVM = new BudgetViewModel();
+
+    // 1. Ambil Data Summary
+    $summary = $transactionVM->getDashboardSummary();
+    
+    // 2. Hitung Total Saldo Real (Saldo Awal Wallet + Cashflow)
+    // Kita butuh data wallet untuk tahu saldo awal
+    $wallets = $walletVM->getWalletList();
+    $totalInitialBalance = 0;
+    foreach($wallets as $w) {
+        $totalInitialBalance += $w['initial_balance'];
+    }
+    // Saldo Akhir = Saldo Awal Dompet + (Pemasukan - Pengeluaran)
+    $currentBalance = $totalInitialBalance + $summary['income'] - $summary['expense'];
+
+    // 3. Ambil 5 Transaksi Terakhir
+    $recentTransactions = $transactionVM->getRecentTransactions();
+
+    // 4. Ambil Data Wallet untuk List Samping
+    $walletList = $walletVM->getWalletList(); // Dipakai lagi untuk tampilan
+
+    require_once 'views/dashboard.php';
+
 } else {
     echo "Invalid entity.";
 }
