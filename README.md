@@ -63,3 +63,5 @@ Aplikasi ini menggunakan `index.php` sebagai *entry point* (Controller utama) ya
 4.  **Response**: Server mengirimkan file View (HTML/PHP) yang sudah berisi data untuk ditampilkan di browser pengguna.
 
 # Dokumentasi
+
+https://github.com/user-attachments/assets/591c3a5c-2339-415d-9a66-786d58f367ca
