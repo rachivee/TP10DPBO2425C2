@@ -41,19 +41,15 @@ require_once 'views/templates/header.php';
                             <?php foreach ($budgetList as $budget): ?>
                                 
                                 <?php 
-                                    // 1. Format Periode
                                     $dateObj = DateTime::createFromFormat('Y-m', $budget['month_year']);
                                     $periodeLabel = $dateObj ? $dateObj->format('M Y') : $budget['month_year'];
                                     
-                                    // 2. Hitung Sisa & Persentase
                                     $limit = $budget['amount_limit'];
-                                    $spent = $budget['total_spent']; // Data dari Model yang baru kita update
+                                    $spent = $budget['total_spent']; 
                                     $remaining = $limit - $spent;
                                     
-                                    // Hitung Persen (Cegah division by zero)
                                     $percent = ($limit > 0) ? ($spent / $limit) * 100 : 0;
                                     
-                                    // 3. Logika Warna Progress Bar & Teks Sisa
                                     if ($percent == 100) {
                                         $barColor = 'bg-danger';
                                         $textColor = 'text-danger fw-bold';
@@ -63,11 +59,11 @@ require_once 'views/templates/header.php';
                                         $textColor = 'text-danger fw-bold';
                                         $statusText = 'Over Budget';
                                     } elseif ($percent >= 80) {
-                                        $barColor = 'bg-warning'; // Kuning (Hati-hati)
+                                        $barColor = 'bg-warning';
                                         $textColor = 'text-warning fw-bold';
                                         $statusText = 'Hampir Habis';
                                     } else {
-                                        $barColor = 'bg-success'; // Hijau (Aman)
+                                        $barColor = 'bg-success';
                                         $textColor = 'text-success fw-bold';
                                         $statusText = 'Aman';
                                     }
@@ -120,7 +116,7 @@ require_once 'views/templates/header.php';
                                 
                                 <td class="text-end pe-4">
                                     <a href="index.php?entity=budget&action=edit&id=<?= $budget['id']; ?>" class="btn btn-light text-primary btn-sm border-0"><i class="fas fa-pencil-alt"></i></a>
-                                    <a href="index.php?entity=budget&action=delete&id=<?= $budget['id']; ?>" class="btn btn-light text-danger btn-sm border-0" onclick="return confirm('Hapus budget?');"><i class="fas fa-trash"></i></a>
+                                    <a href="index.php?entity=budget&action=delete&id=<?= $budget['id']; ?>" class="btn btn-light text-danger btn-sm border-0" onclick="return confirm('Apakah anda yakin hapus budget?');"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

@@ -112,7 +112,6 @@ class Transaction
 
     public function getMonthlyStats($month, $year)
     {
-        // Hitung Income Bulan Ini
         $queryIncome = "SELECT SUM(t.amount) as total FROM " . $this->table . " t 
                         JOIN categories c ON t.category_id = c.id 
                         WHERE c.type = 'income' 
@@ -124,7 +123,6 @@ class Transaction
         $stmt->execute();
         $income = $stmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
 
-        // Hitung Expense Bulan Ini
         $queryExpense = "SELECT SUM(t.amount) as total FROM " . $this->table . " t 
                          JOIN categories c ON t.category_id = c.id 
                          WHERE c.type = 'expense' 

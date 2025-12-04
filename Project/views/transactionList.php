@@ -93,7 +93,7 @@ require_once 'views/templates/header.php';
                                         
                                         <a href="index.php?entity=transaction&action=delete&id=<?= $trx['id']; ?>" 
                                            class="btn btn-light text-danger btn-sm border-0"
-                                           onclick="return confirm('Yakin hapus transaksi ini? Saldo wallet akan dikembalikan.');"
+                                           onclick="return confirm('Apakah anda yakin hapus transaksi ini? Saldo wallet akan dikembalikan.');"
                                            title="Hapus Transaksi">
                                             <i class="fas fa-trash"></i>
                                         </a>

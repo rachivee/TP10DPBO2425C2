@@ -43,7 +43,6 @@ require_once 'views/templates/header.php';
                             <?php foreach ($categoryList as $category): ?>
                                 
                                 <?php 
-                                    // Logika Visual: Tentukan Warna & Label berdasarkan Tipe
                                     $isExpense = ($category['type'] == 'expense');
                                     $badgeClass = $isExpense ? 'bg-danger bg-opacity-10 text-danger' : 'bg-success bg-opacity-10 text-success';
                                     $typeLabel = $isExpense ? 'Pengeluaran' : 'Pemasukan';
@@ -77,7 +76,7 @@ require_once 'views/templates/header.php';
                                         
                                         <a href="index.php?entity=category&action=delete&id=<?= $category['id']; ?>" 
                                            class="btn btn-light text-danger btn-sm border-0"
-                                           onclick="return confirm('Yakin hapus Kategori <?= $category['name']; ?>?');"
+                                           onclick="return confirm('Apakah anda yakin hapus Kategori <?= $category['name']; ?>?');"
                                            title="Hapus Kategori">
                                             <i class="fas fa-trash"></i>
                                         </a>

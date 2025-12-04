@@ -12,10 +12,8 @@ class Budget
         $this->conn = $database->getConnection();
     }
 
-    // PERBAIKAN: Ditambahkan JOIN agar View bisa menampilkan Nama & Icon Kategori
     public function getAll()
     {
-        // Perhatikan tanda koma (,) setelah baris c.icon as category_icon
         $query = "SELECT 
                     b.*, c.name as category_name,
                     (

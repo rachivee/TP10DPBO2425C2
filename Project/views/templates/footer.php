@@ -2,7 +2,7 @@
 
 <footer style="background-color: #1e1b4b; color: #c7d2fe; margin-top: auto;">
     <div class="container pt-5 pb-4">
-        <div class="row g-4 justify-content-between">
+        <div class="row g-4 justify-content-evenly">
             
             <div class="col-lg-4 col-md-6">
                 <h5 class="text-white fw-bold" style="font-family: 'Poppins', sans-serif;">
@@ -36,14 +36,6 @@
                 </ul>
             </div>
 
-            <div class="col-lg-2 col-md-3">
-                <h6 class="text-white fw-bold mb-3">Bantuan</h6>
-                <ul class="list-unstyled small">
-                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Cara Pakai</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">Tips Hemat</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none" style="color: #c7d2fe;">FAQ</a></li>
-                </ul>
-            </div>
         </div>
 
         <div class="border-top border-secondary mt-5 pt-4 text-center small">

@@ -68,7 +68,7 @@ require_once 'views/templates/header.php';
                                         
                                         <a href="index.php?entity=wallet&action=delete&id=<?= $wallet['id']; ?>" 
                                            class="btn btn-light text-danger btn-sm border-0"
-                                           onclick="return confirm('Yakin hapus Wallet <?= $wallet['name']; ?>? Semua transaksi di dalamnya akan ikut terhapus!');"
+                                           onclick="return confirm('Apakah anda yakin hapus Wallet <?= $wallet['name']; ?>?');"
                                            title="Hapus Wallet">
                                             <i class="fas fa-trash"></i>
                                         </a>
