@@ -30,8 +30,8 @@ Database `budget_tracker` terdiri dari 4 tabel yang saling berelasi:
 
 # Fitur Utama
 
-1.  **Dashboard Interaktif**:
-    * Menampilkan total kekayaan (*Net Worth*) secara *real-time* (akumulasi semua saldo dompet).
+1.  **Dashboard**:
+    * Menampilkan total saldo secara *real-time* (akumulasi semua saldo dompet).
     * Ringkasan Pemasukan dan Pengeluaran bulan ini.
     * Daftar 5 transaksi terakhir.
 2.  **Manajemen Dompet (Wallet)**:
@@ -41,9 +41,9 @@ Database `budget_tracker` terdiri dari 4 tabel yang saling berelasi:
     * Mencatat Pemasukan dan Pengeluaran.
     * Otomatis mengurangi/menambah saldo dompet terkait.
     * Visualisasi warna (Merah untuk pengeluaran, Hijau untuk pemasukan).
-4.  **Sistem Budgeting Cerdas**:
+4.  **Sistem Budgeting**:
     * Menetapkan batas pengeluaran per kategori per bulan.
-    * **Progress Bar Visual**: Menampilkan persentase pemakaian anggaran.
+    * **Progress Bar**: Menampilkan persentase pemakaian anggaran.
     * **Warning System**: Memberikan indikator warna (Hijau: Aman, Kuning: Hampir Habis, Merah: Over Budget).
 5.  **Kategori Kustom**: Pengguna dapat membuat kategori pengeluaran/pemasukan sendiri beserta ikonnya.
 
