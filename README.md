@@ -24,7 +24,7 @@ Database `budget_tracker` terdiri dari 4 tabel yang saling berelasi:
 * **wallets**: Menyimpan data sumber dana (misal: Cash, BCA, Gopay).
 * **categories**: Menyimpan jenis transaksi (Income/Expense).
 * **transactions**: Tabel utama yang mencatat arus uang, berelasi dengan `wallets` dan `categories`.
-* **budgets**: Menyimpan batas pengeluaran per kategori per bulan.
+* **budgets**: Menyimpan batas pengeluaran per kategori per bulan, berelasi dengan `categories`
 
 ---
 
